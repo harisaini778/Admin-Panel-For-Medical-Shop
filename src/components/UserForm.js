@@ -1,74 +1,44 @@
-import React, { useState, createContext } from 'react';
-import './UserForm.css';
-
-const FormContext = createContext();
+import React, { useState, useContext } from 'react';
+import { FormContext } from './FormProvider';
 
 const UserForm = () => {
-  const [medicineName, setMedicineName] = useState('');
-  const [medicineDescription, setMedicineDescription] = useState('');
-  const [medicinePrice, setMedicinePrice] = useState('');
+  const { setMedicineName, setMedicineDescription, setMedicinePrice } = useContext(FormContext);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted!');
-    console.log('Medicine Name:', medicineName);
-    console.log('Medicine Description:', medicineDescription);
-    console.log('Medicine Price:', medicinePrice);
+    setSubmitted(true);
   };
 
-  const formContextValue = {
-    medicineName,
-    medicineDescription,
-    medicinePrice
-    };
-    
-    console.log("formContextValue : "+JSON.stringify(formContextValue));
-
   return (
-    <FormContext.Provider value={formContextValue}>
-      <div className="container">
-        <h2>Medicine Details</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="row-userform">
-            <div className="col-userform">
-              <label htmlFor="medicineName">Medicine Name:</label>
-              <input
-                type="text"
-                id="medicineName"
-                value={medicineName}
-                onChange={(e) => setMedicineName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="col-userform">
-              <label htmlFor="medicineDescription">Medicine Description:</label>
-              <textarea
-                id="medicineDescription"
-                value={medicineDescription}
-                onChange={(e) => setMedicineDescription(e.target.value)}
-                required
-              ></textarea>
-            </div>
-            <div className="col-userform">
-              <label htmlFor="medicinePrice">Medicine Price:</label>
-              <input
-                type="number"
-                id="medicinePrice"
-                value={medicinePrice}
-                onChange={(e) => setMedicinePrice(e.target.value)}
-                step="0.01"
-                required
-              />
-            </div>
-            <div className="col-userform">
-              <input type="submit" value="Submit" />
-            </div>
-          </div>
-        </form>
-      </div>
-    </FormContext.Provider>
+    <div>
+      <h2>Medicine Details</h2>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="medicineName">Medicine Name:</label>
+        <input
+          type="text"
+          id="medicineName"
+          onChange={(e) => setMedicineName(e.target.value)}
+          required
+        />
+        <label htmlFor="medicineDescription">Medicine Description:</label>
+        <textarea
+          id="medicineDescription"
+          onChange={(e) => setMedicineDescription(e.target.value)}
+          required
+        ></textarea>
+        <label htmlFor="medicinePrice">Medicine Price:</label>
+        <input
+          type="number"
+          id="medicinePrice"
+          step="0.01"
+          onChange={(e) => setMedicinePrice(e.target.value)}
+          required
+        />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   );
 };
 
 export default UserForm;
-export { FormContext };

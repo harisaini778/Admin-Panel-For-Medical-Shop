@@ -14,7 +14,9 @@
     justify-content: space-around;
     align-items: center;
     list-style-type: none;
+    color:black;
 }
 .medicine-col{
     padding: 10px;
+    color: black;
 }
