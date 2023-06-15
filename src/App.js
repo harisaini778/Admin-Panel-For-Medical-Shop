@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import React from 'react';
+import UserForm, { FormContext } from './components/UserForm';
+import MedicineItems from './components/MedicineItems';
+import Header from './components/Header';
+import Body from './components/Body';
 import './App.css';
 
-function App() {
+const App = () => {
+  // Define the initial form context values
+  const formContextValue = {
+    medicineName: '',
+    medicineDescription: '',
+    medicinePrice: ''
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Body />
+      <FormContext.Provider value={formContextValue}>
+        <UserForm />
+        <MedicineItems />
+      </FormContext.Provider>
     </div>
   );
-}
+};
 
 export default App;
